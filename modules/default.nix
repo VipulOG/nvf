@@ -24,7 +24,8 @@
     specialArgs =
       extraSpecialArgs
       // {
-        inherit self inputs;
+        nvfInputs = inputs;
+        nvfFlake = self;
         modulesPath = toString ./.;
       };
     modules = concatLists [

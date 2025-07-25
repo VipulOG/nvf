@@ -1,5 +1,6 @@
 {
-  inputs,
+  nvfFlake,
+  nvfInputs,
   config,
   pkgs,
   lib,
@@ -48,7 +49,7 @@
       doCheck = false;
     };
 
-    inherit (inputs.self.packages.${pkgs.stdenv.system}) blink-cmp avante-nvim;
+    inherit (nvfFlake.packages.${pkgs.stdenv.system}) blink-cmp avante-nvim;
   };
 
   buildConfigPlugins = plugins:
@@ -70,7 +71,7 @@
 
   # Wrap the user's desired (unwrapped) Neovim package with arguments that'll be used to
   # generate a wrapped Neovim package.
-  neovim-wrapped = inputs.mnw.lib.wrap {inherit pkgs;} {
+  neovim-wrapped = nvfInputs.mnw.lib.wrap {inherit pkgs;} {
     neovim = config.vim.package;
     plugins = {
       start = buildConfigPlugins config.vim.startPlugins;
